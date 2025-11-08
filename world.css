@@ -1,1 +1,253 @@
-/* Add your own styles */
+/* ================
+   World Lookup — Styles
+   ================ */
+
+/* CSS variables (easy theming) */
+:root{
+    --bg: #0f172a;           /* slate-900 */
+    --bg-elev: #111827;      /* near-slate-900 */
+    --card: #0b1224;         /* dark card */
+    --text: #e5e7eb;         /* zinc-200 */
+    --muted: #9ca3af;        /* gray-400 */
+    --border: #1f2937;       /* slate-800 */
+    --primary: #60a5fa;      /* blue-400 */
+    --primary-strong: #3b82f6;/* blue-500 */
+    --accent: #22d3ee;       /* cyan-400 */
+    --ok: #10b981;           /* emerald-500 */
+    --warn: #f59e0b;         /* amber-500 */
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  
+  /* Page baseline */
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+  
+  html, body { height: 100%; }
+  html { scroll-behavior: smooth; }
+  
+  body{
+    margin: 0;
+    color: var(--text);
+    background:
+      radial-gradient(1000px 600px at 20% -10%, rgba(34,211,238,.12), transparent 60%),
+      radial-gradient(900px 700px at 120% 0%, rgba(96,165,250,.12), transparent 60%),
+      linear-gradient(180deg, var(--bg), #0b1020 60%, #070b16);
+    font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+  }
+  
+  /* Layout */
+  header {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  header h1 {
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    font-size: 2.3rem;
+    margin: 0.5rem 0 0;
+  
+    /* Gradient text */
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+  
+    /* Standard property (even though it currently doesn't affect text) */
+    background-clip: text;    
+  
+    /* Vendor prefix for Chrome / Safari */
+    -webkit-background-clip: text;
+  
+    /* Make text transparent so gradient shows */
+    -webkit-text-fill-color: transparent;
+  }
+  
+  
+  
+  main{
+    width: min(100%, 980px);
+    margin: 0 auto;
+    padding: 0 1rem 4rem;
+  }
+  
+  /* Controls card */
+  #controls{
+    background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .75rem .75rem;
+    align-items: center;
+    backdrop-filter: blur(6px);
+  }
+  
+  #controls label{
+    grid-column: 1 / -1;
+    color: var(--muted);
+    font-size: .9rem;
+  }
+  
+  #controls input[type="search"]{
+    width: 100%;
+    border: 1px solid var(--border);
+    background: #0a1020;
+    color: var(--text);
+    border-radius: 12px;
+    padding: .85rem 1rem;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+    font-size: 1rem;
+  }
+  
+  #controls input[type="search"]::placeholder{
+    color: #6b7280; /* gray-500 */
+  }
+  
+  #controls input[type="search"]:focus{
+    border-color: rgba(96,165,250,.65);
+    box-shadow: 0 0 0 3px rgba(96,165,250,.25);
+  }
+  
+  #lookup{
+    appearance: none;
+    border: 0;
+    padding: .9rem 1.2rem;
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--primary), var(--primary-strong));
+    color: white;
+    font-weight: 700;
+    letter-spacing: .2px;
+    cursor: pointer;
+    transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
+    box-shadow: 0 8px 20px rgba(59,130,246,.35);
+  }
+  
+  #lookup:hover{ filter: brightness(1.05); }
+  #lookup:active{ transform: translateY(1px); }
+  
+  /* Results area */
+  #result{
+    margin-top: 1.25rem;
+    background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    min-height: 140px;
+  }
+  
+  /* Table styles (Exercise 4) */
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: .95rem;
+  }
+  
+  table.countries thead th{
+    text-align: left;
+    font-size: .85rem;
+    color: var(--muted);
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+    padding: .75rem .8rem;
+    position: sticky;
+    top: 0;
+    background: #0c1222;
+    z-index: 1;
+  }
+  
+  table.countries tbody td{
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    padding: .8rem .8rem;
+  }
+  
+  table.countries tbody tr{
+    transition: background-color .12s linear;
+  }
+  
+  table.countries tbody tr:nth-child(even){
+    background: rgba(255,255,255,.02);
+  }
+  
+  table.countries tbody tr:hover{
+    background: rgba(34,211,238,.08); /* cyan hint */
+  }
+  
+  /* Numeric / year column alignment */
+  table.countries td:nth-child(3){
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    color: #d1d5db; /* gray-300 */
+  }
+  
+  /* Empty / error messages */
+  #result p{
+    margin: 0;
+    padding: .8rem 1rem;
+    background: #0b1224;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    color: var(--muted);
+  }
+  
+  /* Small screens */
+  @media (max-width: 640px){
+    #controls{
+      grid-template-columns: 1fr;
+    }
+    #lookup{ width: 100%; }
+    table.countries thead{ display: none; }
+    table.countries, table.countries tbody, table.countries tr, table.countries td{
+      display: block;
+      width: 100%;
+    }
+    table.countries tr{ padding: .6rem .6rem; border: 1px solid var(--border); border-radius: 12px; margin-bottom: .6rem; background: #0b1224; }
+    table.countries td{
+      border: 0;
+      padding: .35rem .2rem;
+      display: grid;
+      grid-template-columns: 10ch 1fr;
+      gap: .6rem;
+    }
+    table.countries td::before{
+      content: attr(data-label);
+      color: var(--muted);
+      font-size: .85rem;
+    }
+  }
+  
+  /* Subtle page footer space (if you add one later) */
+  footer{ color: var(--muted); text-align:center; padding: 2rem 1rem 3rem; }
+  
+  /* Nice focus outlines for accessibility */
+  :focus-visible{
+    outline: 3px solid rgba(34,211,238,.55);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  .world-icon {
+    width: 95px;
+    height: auto;
+    display: block;
+    margin: 0 auto 0.5rem;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+  }
+  
+  
+  .header-with-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .header-with-icon .world-icon {
+    width: 70px;
+    margin: 0;
+  }
+  
