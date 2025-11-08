@@ -36,6 +36,51 @@ if ($country !== '') {
   ");
 }
 
+$lookup = isset($_GET['lookup']) ? trim($_GET['lookup']) : '';
+// If looking up cities
+if ($lookup === "cities" && $country !== "") {
+
+   $stmt = $conn->prepare("
+       SELECT cities.name AS city_name, cities.district, cities.population
+       FROM cities
+       JOIN countries ON cities.country_code = countries.code
+       WHERE countries.name LIKE CONCAT('%', :country, '%')
+       ORDER BY cities.population DESC
+   ");
+
+   $stmt->execute([':country' => $country]);
+   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+   // Output cities table
+   if (!$rows) {
+       echo "<p>No cities found for that country.</p>";
+       exit;
+   }
+
+   echo '<table class="countries">';
+   echo '<thead><tr>
+           <th>City</th>
+           <th>District</th>
+           <th>Population</th>
+       </tr></thead><tbody>';
+
+   foreach ($rows as $r) {
+       $name  = htmlspecialchars($r['city_name']);
+       $dist  = htmlspecialchars($r['district']);
+       $pop   = htmlspecialchars($r['population']);
+
+       echo "<tr>
+               <td data-label=\"City\">$name</td>
+               <td data-label=\"District\">$dist</td>
+               <td data-label=\"Population\">$pop</td>
+             </tr>";
+   }
+
+   echo '</tbody></table>';
+   exit;
+}
+
+
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Output as an HTML table (Exercise 4)
@@ -72,3 +117,4 @@ foreach ($rows as $r) {
 
 echo '  </tbody>';
 echo '</table>';
+

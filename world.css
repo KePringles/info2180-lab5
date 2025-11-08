@@ -1,253 +1,246 @@
-/* ================
-   World Lookup — Styles
-   ================ */
+/* ===============================
+   World Lookup — Map-blended Theme
+   =============================== */
 
-/* CSS variables (easy theming) */
+/* Theme tokens */
 :root{
-    --bg: #0f172a;           /* slate-900 */
-    --bg-elev: #111827;      /* near-slate-900 */
-    --card: #0b1224;         /* dark card */
-    --text: #e5e7eb;         /* zinc-200 */
-    --muted: #9ca3af;        /* gray-400 */
-    --border: #1f2937;       /* slate-800 */
-    --primary: #60a5fa;      /* blue-400 */
-    --primary-strong: #3b82f6;/* blue-500 */
-    --accent: #22d3ee;       /* cyan-400 */
-    --ok: #10b981;           /* emerald-500 */
-    --warn: #f59e0b;         /* amber-500 */
-    --shadow: 0 10px 30px rgba(0,0,0,.35);
-  }
-  
-  /* Page baseline */
-  *,
-  *::before,
-  *::after { box-sizing: border-box; }
-  
-  html, body { height: 100%; }
-  html { scroll-behavior: smooth; }
-  
-  body{
-    margin: 0;
-    color: var(--text);
-    background:
-      radial-gradient(1000px 600px at 20% -10%, rgba(34,211,238,.12), transparent 60%),
-      radial-gradient(900px 700px at 120% 0%, rgba(96,165,250,.12), transparent 60%),
-      linear-gradient(180deg, var(--bg), #0b1020 60%, #070b16);
-    font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
-  }
-  
-  /* Layout */
-  header {
-    text-align: center;
-    margin-top: 2rem;
-  }
-  
-  header h1 {
-    text-transform: uppercase;
-    font-weight: 900;
-    letter-spacing: 1.2px;
-    font-size: 2.3rem;
-    margin: 0.5rem 0 0;
-  
-    /* Gradient text */
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-  
-    /* Standard property (even though it currently doesn't affect text) */
-    background-clip: text;    
-  
-    /* Vendor prefix for Chrome / Safari */
-    -webkit-background-clip: text;
-  
-    /* Make text transparent so gradient shows */
-    -webkit-text-fill-color: transparent;
-  }
-  
-  
-  
-  main{
-    width: min(100%, 980px);
-    margin: 0 auto;
-    padding: 0 1rem 4rem;
-  }
-  
-  /* Controls card */
-  #controls{
-    background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    padding: 1.25rem;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: .75rem .75rem;
-    align-items: center;
-    backdrop-filter: blur(6px);
-  }
-  
-  #controls label{
-    grid-column: 1 / -1;
-    color: var(--muted);
-    font-size: .9rem;
-  }
-  
-  #controls input[type="search"]{
-    width: 100%;
-    border: 1px solid var(--border);
-    background: #0a1020;
-    color: var(--text);
-    border-radius: 12px;
-    padding: .85rem 1rem;
-    outline: none;
-    transition: border-color .2s ease, box-shadow .2s ease;
-    font-size: 1rem;
-  }
-  
-  #controls input[type="search"]::placeholder{
-    color: #6b7280; /* gray-500 */
-  }
-  
-  #controls input[type="search"]:focus{
-    border-color: rgba(96,165,250,.65);
-    box-shadow: 0 0 0 3px rgba(96,165,250,.25);
-  }
-  
-  #lookup{
-    appearance: none;
-    border: 0;
-    padding: .9rem 1.2rem;
-    border-radius: 12px;
-    background: linear-gradient(180deg, var(--primary), var(--primary-strong));
-    color: white;
-    font-weight: 700;
-    letter-spacing: .2px;
-    cursor: pointer;
-    transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
-    box-shadow: 0 8px 20px rgba(59,130,246,.35);
-  }
-  
-  #lookup:hover{ filter: brightness(1.05); }
-  #lookup:active{ transform: translateY(1px); }
-  
-  /* Results area */
-  #result{
-    margin-top: 1.25rem;
-    background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    padding: 1rem;
-    min-height: 140px;
-  }
-  
-  /* Table styles (Exercise 4) */
-  table{
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    font-size: .95rem;
-  }
-  
-  table.countries thead th{
-    text-align: left;
-    font-size: .85rem;
-    color: var(--muted);
-    font-weight: 700;
-    border-bottom: 1px solid var(--border);
-    padding: .75rem .8rem;
-    position: sticky;
-    top: 0;
-    background: #0c1222;
-    z-index: 1;
-  }
-  
-  table.countries tbody td{
-    border-bottom: 1px solid rgba(255,255,255,.04);
-    padding: .8rem .8rem;
-  }
-  
-  table.countries tbody tr{
-    transition: background-color .12s linear;
-  }
-  
-  table.countries tbody tr:nth-child(even){
-    background: rgba(255,255,255,.02);
-  }
-  
-  table.countries tbody tr:hover{
-    background: rgba(34,211,238,.08); /* cyan hint */
-  }
-  
-  /* Numeric / year column alignment */
-  table.countries td:nth-child(3){
-    text-align: center;
-    font-variant-numeric: tabular-nums;
-    color: #d1d5db; /* gray-300 */
-  }
-  
-  /* Empty / error messages */
-  #result p{
-    margin: 0;
-    padding: .8rem 1rem;
-    background: #0b1224;
-    border: 1px dashed var(--border);
-    border-radius: 12px;
-    color: var(--muted);
-  }
-  
-  /* Small screens */
-  @media (max-width: 640px){
-    #controls{
-      grid-template-columns: 1fr;
-    }
-    #lookup{ width: 100%; }
-    table.countries thead{ display: none; }
-    table.countries, table.countries tbody, table.countries tr, table.countries td{
-      display: block;
-      width: 100%;
-    }
-    table.countries tr{ padding: .6rem .6rem; border: 1px solid var(--border); border-radius: 12px; margin-bottom: .6rem; background: #0b1224; }
-    table.countries td{
-      border: 0;
-      padding: .35rem .2rem;
-      display: grid;
-      grid-template-columns: 10ch 1fr;
-      gap: .6rem;
-    }
-    table.countries td::before{
-      content: attr(data-label);
-      color: var(--muted);
-      font-size: .85rem;
-    }
-  }
-  
-  /* Subtle page footer space (if you add one later) */
-  footer{ color: var(--muted); text-align:center; padding: 2rem 1rem 3rem; }
-  
-  /* Nice focus outlines for accessibility */
-  :focus-visible{
-    outline: 3px solid rgba(34,211,238,.55);
-    outline-offset: 2px;
-    border-radius: 6px;
-  }
+  /* Background gradient behind the map */
+  --bg1: #7ec6f0;        /* ocean light */
+  --bg2: #bde7ff;        /* ocean lighter */
 
-  .world-icon {
-    width: 95px;
-    height: auto;
-    display: block;
-    margin: 0 auto 0.5rem;
-    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+  /* Panel/content colors */
+  --ink: #0f172a;        /* slate-900 */
+  --ink-soft: #334155;   /* slate-700 */
+  --panel: #ffffff;
+  --line: #e5e7eb;       /* gray-200 */
+
+  /* Ocean palette for controls */
+  --ocean: #a7d8f0;      /* matches map water */
+  --ocean-deep: #74b9e6; /* deeper ocean */
+  --ocean-ink: #093e67;
+
+  /* Accents */
+  --primary: #0ea5e9;        /* sky-500 */
+  --primary-strong: #0284c7; /* sky-600 */
+}
+
+/* Baseline */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif;
+
+  /* Soft gradient behind the map */
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  background-attachment: fixed;          /* keep gradient steady */
+  background-clip: border-box;           /* standard property */
+  -webkit-background-clip: border-box;   /* Safari */
+
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Full-page map background, gently faded at the very top */
+body::after{
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("./world.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.22; /* subtle so content stays readable */
+  z-index: -1;
+
+  /* Gentle fade at top of map into the gradient */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 120px, black 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, black 120px, black 100%);
+}
+
+/* Page container */
+main {
+  max-width: 960px;
+  margin: 28px auto 40px;
+  padding: 24px;
+  background: var(--panel);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
+  border: 1px solid rgba(2,6,23,0.06);
+  backdrop-filter: blur(2px);
+}
+
+/* ========== Header / Title ========== */
+.page-hero{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 140px;   /* increase this if you want lower */
+  padding-bottom: 20px;
+}
+
+
+/* ALL CAPS + Bold + Centered */
+.page-title{
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: .04em;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.1;
+  color: #0b2a4a; /* darker to pop on the light sky */
+  position: relative;
+}
+
+/* ✨ Glow effect (toggle by keeping/removing this class) */
+.title--glow{
+  text-shadow:
+    0 0 12px rgba(8, 145, 178, .35),   /* cyan glow */
+    0 2px 18px rgba(2, 132, 199, .35), /* sky glow */
+    0 0 2px rgba(0,0,0,.2);            /* crisp edge */
+}
+
+/* ✨ Flag-pattern text (toggle by keeping/removing this class)
+   Fallback color comes from .page-title "color" above. */
+.title--flag{
+  background-image: repeating-linear-gradient(
+    45deg,
+    #d32f2f 0 12px,   /* red  */
+    #fdd835 12px 24px,/* yellow */
+    #1976d2 24px 36px,/* blue */
+    #1e9b4f 36px 48px,/* green */
+    #ffffff 48px 60px /* white */
+  );
+  -webkit-background-clip: text;  /* vendor */
+          background-clip: text;  /* standard for compatibility */
+  color: transparent;             /* reveal pattern */
+}
+
+/* ========== Controls (match map palette) ========== */
+#controls {
+  display: grid;
+  grid-template-columns: 120px 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+#controls label {
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+#controls input[type="search"]{
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+
+  /* Ocean-tinted field matching the map */
+  background: linear-gradient(180deg, var(--ocean), var(--ocean-deep));
+  color: #fff;
+
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+}
+#controls input[type="search"]::placeholder{
+  color: rgba(255,255,255,0.85);
+}
+
+#controls input[type="search"]:focus{
+  box-shadow: 0 0 0 3px rgba(14,165,233,.35);
+  border-color: rgba(14,165,233,.55);
+}
+
+#controls button{
+  padding: 12px 14px;
+  border: none;
+  border-radius: 12px;
+  background: #0b1220;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .04s ease, box-shadow .2s ease, background .2s ease;
+}
+#controls button:hover{
+  background: #0f172a;
+  box-shadow: 0 6px 16px rgba(2,6,23,.25);
+}
+#controls button:active{ transform: translateY(1px); }
+
+/* ========== Results / Tables ========== */
+#result { margin-top: 18px; }
+
+table.countries {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 0.96rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+table.countries thead th {
+  background: #f8fafc;
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+table.countries td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: top;
+}
+
+/* Zebra */
+table.countries tbody tr:nth-child(even){ background: #fcfcfd; }
+
+/* Center the Independence Year (3rd column) */
+table.countries thead th:nth-child(3),
+table.countries tbody td:nth-child(3){
+  text-align: center !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* If you give your cities table class="countries cities",
+   this will right-align the Population column only there. */
+table.countries.cities tbody td:last-child{
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 640px){
+  #controls { grid-template-columns: 1fr; }
+
+  table.countries thead{ display: none; }
+  table.countries, table.countries tbody, table.countries tr, table.countries td{
+    display: block; width: 100%;
   }
-  
-  
-  .header-with-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+  table.countries tr{
+    padding: .6rem .6rem;
+    border: 1px solid #eef2f7;
+    border-radius: 12px;
+    margin-bottom: .6rem;
+    background: #fff;
   }
-  
-  .header-with-icon .world-icon {
-    width: 70px;
-    margin: 0;
+  table.countries td{
+    border: 0;
+    padding: .35rem .2rem;
+    display: grid;
+    grid-template-columns: 11ch 1fr;
+    gap: .6rem;
   }
-  
+  table.countries td::before{
+    content: attr(data-label);
+    color: #64748b;
+    font-size: .86rem;
+    font-weight: 600;
+  }
+}
